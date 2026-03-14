@@ -18,204 +18,166 @@
       justify-content: center;
       overflow: hidden;
     }
-
-    /* Brick wall bg */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-image:
         repeating-linear-gradient(0deg, transparent, transparent 29px, rgba(0,0,0,0.4) 30px),
         repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(0,0,0,0.2) 60px);
       background-color: #3d1a0a;
-      z-index: 0;
-      opacity: 0.6;
+      z-index: 0; opacity: 0.6;
     }
 
     .layout {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      position: relative;
-      z-index: 10;
+      display: flex; gap: 12px; align-items: flex-start;
+      position: relative; z-index: 10;
     }
 
-    /* WIN98 WINDOW */
     .window {
       background: #c0c0c0;
       border: 3px solid;
       border-color: #ffffff #808080 #808080 #ffffff;
       box-shadow: 4px 4px 0 #000;
     }
-
     .title-bar {
       background: linear-gradient(90deg, #000080, #1084d0);
-      color: white;
-      padding: 3px 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      font-weight: bold;
-      font-family: Arial, sans-serif;
+      color: white; padding: 3px 6px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px; font-weight: bold; font-family: Arial, sans-serif;
       user-select: none;
     }
     .title-bar-btns span {
-      display: inline-block;
-      width: 14px; height: 12px;
-      background: #c0c0c0;
-      border: 2px solid;
+      display: inline-block; width: 14px; height: 12px;
+      background: #c0c0c0; border: 2px solid;
       border-color: #fff #808080 #808080 #fff;
-      font-size: 9px;
-      text-align: center;
-      line-height: 8px;
-      color: #000;
-      margin-left: 2px;
+      font-size: 9px; text-align: center; line-height: 8px;
+      color: #000; margin-left: 2px; cursor: pointer;
     }
 
-    /* GAME CANVAS WINDOW */
-    .game-window { }
     .game-window .window-body {
-      padding: 6px;
-      background: #000;
-      position: relative;
+      padding: 6px; background: #000; position: relative;
     }
-
     canvas#gameCanvas {
-      display: block;
-      border: 2px inset #808080;
-      image-rendering: pixelated;
+      display: block; border: 2px inset #808080; image-rendering: pixelated;
     }
 
-    /* OVERLAY screens */
+    /* OVERLAYS */
     .overlay {
-      position: absolute;
-      inset: 6px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.85);
-      z-index: 20;
-      text-align: center;
-      padding: 20px;
+      position: absolute; inset: 6px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.88); z-index: 20;
+      text-align: center; padding: 16px;
     }
-    .overlay h1 { color: #ff4400; font-size: 22px; text-shadow: 2px 2px #000; margin-bottom: 8px; }
-    .overlay h2 { color: #ffff00; font-size: 16px; margin-bottom: 16px; }
-    .overlay p { color: #ccc; font-size: 12px; margin-bottom: 16px; line-height: 1.6; }
-    .overlay-btn {
+    .overlay h1 { color: #ff4400; font-size: 20px; text-shadow: 2px 2px #000; margin-bottom: 6px; }
+    .overlay h2 { color: #ffff00; font-size: 15px; margin-bottom: 10px; }
+    .overlay p  { color: #ccc; font-size: 11px; margin-bottom: 12px; line-height: 1.6; }
+
+    .win-btn {
       font-family: 'Comic Neue', cursive;
-      background: #c0c0c0;
-      border: 3px solid;
+      background: #c0c0c0; border: 3px solid;
       border-color: #fff #808080 #808080 #fff;
-      padding: 8px 24px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: bold;
-      margin: 4px;
+      padding: 6px 14px; cursor: pointer; font-size: 13px;
+      font-weight: bold; margin: 3px; display: inline-block;
     }
-    .overlay-btn:hover { background: #d0d0d0; }
-    .overlay-btn.red { background: #cc0000; color: #fff; border-color: #ff4040 #800000 #800000 #ff4040; }
+    .win-btn:hover { background: #d0d0d0; }
+    .win-btn:active { border-color: #808080 #fff #fff #808080; }
+    .win-btn.red  { background:#cc0000; color:#fff; border-color:#ff4040 #800000 #800000 #ff4040; }
+    .win-btn.blue { background:#000080; color:#fff; border-color:#4040c0 #000040 #000040 #4040c0; }
+    .win-btn.gold { background:#b8860b; color:#fff; border-color:#ffd700 #806000 #806000 #ffd700; }
+
+    /* WIN98 INPUT */
+    .win-input {
+      font-family: 'Comic Neue', cursive; font-size: 13px;
+      background: #fff; border: 2px solid;
+      border-color: #808080 #fff #fff #808080;
+      padding: 4px 8px; width: 160px; margin: 6px 0;
+      color: #000;
+    }
 
     /* SIDE PANEL */
     .side-panel { width: 160px; }
     .side-panel .window-body { padding: 8px; }
-
     .info-box {
-      background: #fff;
-      border: 2px solid;
+      background: #fff; border: 2px solid;
       border-color: #808080 #fff #fff #808080;
-      padding: 6px 8px;
-      margin-bottom: 8px;
-      font-size: 12px;
+      padding: 5px 8px; margin-bottom: 6px; font-size: 12px;
     }
     .info-box .label { color: #666; font-size: 10px; text-transform: uppercase; }
     .info-box .value { color: #000080; font-size: 18px; font-weight: bold; }
-
-    .credibility-bar-outer {
-      background: #808080;
-      border: 2px solid;
+    .cred-bar-outer {
+      background: #808080; border: 2px solid;
       border-color: #808080 #fff #fff #808080;
-      height: 14px;
-      margin: 4px 0;
+      height: 14px; margin: 4px 0;
     }
-    .credibility-bar-inner {
-      height: 100%;
-      background: linear-gradient(90deg, #00aa00, #aaff00);
-      transition: width 0.3s, background 0.3s;
-    }
-
-    canvas#nextCanvas {
-      display: block;
-      border: 2px inset #808080;
-      background: #111;
-      margin: 4px auto;
-    }
-
+    .cred-bar-inner { height: 100%; background: linear-gradient(90deg,#00aa00,#aaff00); transition: width 0.3s, background 0.3s; }
+    canvas#nextCanvas { display:block; border:2px inset #808080; background:#111; margin:4px auto; }
     .controls { font-size: 10px; color: #444; line-height: 1.8; }
     .controls b { color: #000080; }
 
     /* HILLARY POPUP */
     #hillaryPopup {
-      position: fixed;
-      bottom: 60px;
-      right: 20px;
-      z-index: 999;
-      display: none;
-      animation: slideIn 0.3s ease;
+      position: fixed; bottom: 60px; right: 20px; z-index: 999;
+      display: none; animation: slideIn 0.3s ease;
     }
     @keyframes slideIn { from{transform:translateX(200px);opacity:0} to{transform:translateX(0);opacity:1} }
-    #hillaryPopup .window-body {
-      padding: 10px;
-      text-align: center;
-      font-size: 13px;
-      max-width: 180px;
-    }
-    #hillaryPopup .big { font-size: 40px; }
+    #hillaryPopup .window-body { padding: 10px; text-align: center; font-size: 12px; max-width: 180px; }
+    #hillaryPopup .big { font-size: 36px; }
 
-    /* FEDS flash */
+    /* FEDS FLASH */
     .feds-flash {
-      position: fixed;
-      inset: 0;
-      background: red;
-      z-index: 9999;
-      opacity: 0;
-      pointer-events: none;
+      position: fixed; inset: 0; background: red; z-index: 9999;
+      opacity: 0; pointer-events: none;
       animation: fedsFlash 1.2s ease forwards;
     }
-    @keyframes fedsFlash {
-      0%{opacity:0} 20%{opacity:0.7} 40%{opacity:0.1} 60%{opacity:0.6} 80%{opacity:0.1} 100%{opacity:0}
+    @keyframes fedsFlash { 0%{opacity:0}20%{opacity:.7}40%{opacity:.1}60%{opacity:.6}80%{opacity:.1}100%{opacity:0} }
+
+    /* ROW CLEAR MSG */
+    #rowClearMsg {
+      position: absolute; top:50%; left:50%;
+      transform: translate(-50%,-50%);
+      color: #ffff00; font-size: 12px; font-weight: bold;
+      text-shadow: 1px 1px #000; pointer-events: none;
+      z-index: 15; display: none; text-align: center; white-space: nowrap;
     }
+
+    /* MODAL (leaderboard / share card) */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      z-index: 500; display: none;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-window { min-width: 320px; max-width: 95vw; }
+    .modal-window .window-body { padding: 12px; }
+
+    /* LEADERBOARD TABLE */
+    .lb-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .lb-table th {
+      background: #000080; color: #fff; padding: 4px 8px;
+      text-align: left; font-weight: bold;
+    }
+    .lb-table td { padding: 3px 8px; border-bottom: 1px solid #ccc; }
+    .lb-table tr:nth-child(even) td { background: #e8e8e8; }
+    .lb-table tr.me td { background: #ffffcc; font-weight: bold; }
+    .lb-rank { font-weight: bold; color: #000080; }
+    .lb-rank.gold-rank { color: #b8860b; }
+
+    /* SHARE CARD PREVIEW */
+    #shareCardCanvas { display: block; border: 2px inset #808080; margin: 8px auto; }
 
     /* MARQUEE */
     .marquee-wrap {
       position: fixed; bottom: 0; width: 100%;
       background: #000080; color: #ffff00;
       font-size: 12px; padding: 3px 0; z-index: 5;
-      font-family: 'Comic Neue', cursive; overflow: hidden;
+      overflow: hidden;
     }
     .marquee-inner {
       display: inline-block; white-space: nowrap;
       animation: marquee 50s linear infinite;
     }
     @keyframes marquee { from{transform:translateX(100vw)} to{transform:translateX(-100%)} }
-
-    /* ROW CLEAR FLASH */
-    #rowClearMsg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #ffff00;
-      font-size: 13px;
-      font-weight: bold;
-      text-shadow: 1px 1px #000;
-      pointer-events: none;
-      z-index: 15;
-      display: none;
-      text-align: center;
-      white-space: nowrap;
-    }
   </style>
 </head>
 <body>
@@ -230,23 +192,36 @@
     </div>
     <div class="window-body" style="position:relative;">
       <canvas id="gameCanvas" width="200" height="400"></canvas>
-      <div id="rowClearMsg">EPSTEIN DIDN'T KILL HIMSELF 👁️</div>
+      <div id="rowClearMsg"></div>
 
-      <!-- START SCREEN -->
+      <!-- START -->
       <div class="overlay" id="startScreen">
         <h1>🏚️ CLINTON'S<br>BASEMENT</h1>
         <h2>STACKING SIMULATOR 2000™</h2>
         <p>Stack them high.<br>Don't let them reach the top.<br>Bill is watching.</p>
-        <button class="overlay-btn red" onclick="startGame()">▶ START GAME</button>
+        <button class="win-btn red" onclick="startGame()">▶ START GAME</button>
+        <button class="win-btn" onclick="showLeaderboard()" style="margin-top:4px;">🏆 HALL OF SHAME</button>
       </div>
 
-      <!-- GAME OVER SCREEN -->
+      <!-- GAME OVER -->
       <div class="overlay" id="gameOverScreen" style="display:none;">
         <h1>🚨 THE FEDS<br>ARE HERE 🚨</h1>
-        <h2 id="finalScoreText">Score: 0</h2>
-        <p id="gameOverVerdict"></p>
-        <button class="overlay-btn red" onclick="startGame()">🔄 PLAY AGAIN</button>
-        <button class="overlay-btn" onclick="shareScore()">🐦 SHARE</button>
+        <div style="color:#ffff00;font-size:22px;font-weight:bold;margin:6px 0;" id="finalScoreText">0</div>
+        <div style="color:#ff8888;font-size:11px;margin-bottom:10px;" id="gameOverVerdict"></div>
+
+        <div style="color:#aaa;font-size:11px;margin-bottom:4px;">Enter your name for the Hall of Shame:</div>
+        <input class="win-input" id="playerName" type="text" maxlength="20" placeholder="Anonymous Goy" />
+
+        <div style="margin-top:8px;">
+          <button class="win-btn gold" onclick="submitScore()">🏆 SUBMIT SCORE</button>
+        </div>
+        <div style="margin-top:6px;">
+          <button class="win-btn blue" onclick="generateShareCard()">🖼️ SHARE CARD</button>
+          <button class="win-btn" onclick="showLeaderboard()">📊 LEADERBOARD</button>
+        </div>
+        <div style="margin-top:6px;">
+          <button class="win-btn red" onclick="startGame()">🔄 PLAY AGAIN</button>
+        </div>
       </div>
 
     </div>
@@ -259,30 +234,25 @@
       <div class="title-bar-btns"><span>✕</span></div>
     </div>
     <div class="window-body">
-
       <div class="info-box">
         <div class="label">Score</div>
         <div class="value" id="scoreDisplay">0</div>
       </div>
-
       <div class="info-box">
         <div class="label">Level</div>
         <div class="value" id="levelDisplay">1</div>
       </div>
-
       <div class="info-box">
         <div class="label">Bill's Credibility</div>
-        <div class="credibility-bar-outer">
-          <div class="credibility-bar-inner" id="credBar" style="width:100%"></div>
+        <div class="cred-bar-outer">
+          <div class="cred-bar-inner" id="credBar" style="width:100%"></div>
         </div>
-        <div style="font-size:10px; color:#800000;" id="credPct">100%</div>
+        <div style="font-size:10px;color:#800000;" id="credPct">100%</div>
       </div>
-
       <div class="info-box" style="text-align:center;">
         <div class="label">Next</div>
         <canvas id="nextCanvas" width="80" height="80"></canvas>
       </div>
-
       <div class="info-box controls">
         <b>←→</b> Move<br>
         <b>↑</b> Rotate<br>
@@ -290,11 +260,9 @@
         <b>Space</b> Hard drop<br>
         <b>P</b> Pause
       </div>
-
-      <div class="info-box" style="font-size:10px; color:#800000; text-align:center; line-height:1.5;">
+      <div class="info-box" style="font-size:10px;color:#800000;text-align:center;line-height:1.5;">
         🌟 Epstein block<br>clears a row
       </div>
-
     </div>
   </div>
 
@@ -308,7 +276,44 @@
   </div>
   <div class="window-body">
     <div class="big">👩‍💼😏</div>
-    <div id="hillaryMsg">I've already deleted the emails.</div>
+    <div id="hillaryMsg" style="font-size:12px;margin-top:6px;"></div>
+  </div>
+</div>
+
+<!-- LEADERBOARD MODAL -->
+<div class="modal-overlay" id="lbModal">
+  <div class="window modal-window">
+    <div class="title-bar">
+      <span>🏆 HALL OF SHAME — TOP STACKER</span>
+      <div class="title-bar-btns"><span onclick="closeModal('lbModal')">✕</span></div>
+    </div>
+    <div class="window-body">
+      <table class="lb-table" id="lbTable">
+        <thead><tr><th>#</th><th>Name</th><th>Score</th><th>Level</th></tr></thead>
+        <tbody id="lbBody"><tr><td colspan="4" style="text-align:center;color:#666;padding:12px;">Loading...</td></tr></tbody>
+      </table>
+      <div style="text-align:center;margin-top:10px;">
+        <button class="win-btn" onclick="closeModal('lbModal')">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SHARE CARD MODAL -->
+<div class="modal-overlay" id="shareModal">
+  <div class="window modal-window">
+    <div class="title-bar">
+      <span>🖼️ YOUR SHARE CARD</span>
+      <div class="title-bar-btns"><span onclick="closeModal('shareModal')">✕</span></div>
+    </div>
+    <div class="window-body" style="text-align:center;">
+      <canvas id="shareCardCanvas" width="520" height="320"></canvas>
+      <div style="margin-top:8px;">
+        <button class="win-btn blue" onclick="downloadCard()">⬇️ SAVE IMAGE</button>
+        <button class="win-btn gold" onclick="tweetCard()">🐦 TWEET THIS</button>
+        <button class="win-btn" onclick="closeModal('shareModal')">Close</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -326,24 +331,30 @@
 
 <script>
 // ============================================================
+// SUPABASE CONFIG — paste your keys here when ready
+// Leave empty to use local leaderboard (localStorage)
+// Setup: supabase.com → new project → SQL editor → run SETUP.sql
+// ============================================================
+const SUPABASE_URL  = '';  // e.g. 'https://xxxx.supabase.co'
+const SUPABASE_KEY  = '';  // anon/public key
+
+// ============================================================
 // CONSTANTS
 // ============================================================
 const COLS = 10, ROWS = 20, CELL = 20;
 const COLORS = ['#ff69b4','#ff1493','#ffb6c1','#ff85a1','#ffc0cb','#ff6b8a','#e75480'];
 const EPSTEIN_COLOR = '#ffd700';
 
-// Tetromino shapes
 const SHAPES = [
-  [[1,1,1,1]],                         // I
-  [[1,1],[1,1]],                        // O
-  [[0,1,0],[1,1,1]],                    // T
-  [[1,0],[1,1],[0,1]],                  // S
-  [[0,1],[1,1],[1,0]],                  // Z
-  [[1,0],[1,0],[1,1]],                  // J
-  [[0,1],[0,1],[1,1]],                  // L
+  [[1,1,1,1]],
+  [[1,1],[1,1]],
+  [[0,1,0],[1,1,1]],
+  [[1,0],[1,1],[0,1]],
+  [[0,1],[1,1],[1,0]],
+  [[1,0],[1,0],[1,1]],
+  [[0,1],[0,1],[1,1]],
 ];
 
-// Hillary messages
 const HILLARY_MSGS = [
   "I've already deleted the emails. 😉",
   "What emails? I don't recall any emails.",
@@ -351,165 +362,128 @@ const HILLARY_MSGS = [
   "The server is in the basement too.",
   "Bill says hi. 👁️",
   "I would have gotten away with it too...",
+  "Bleachbit is a wonderful product.",
+];
+
+const VERDICTS = [
+  [0,    999,  "You barely tried. Bill is disappointed."],
+  [1000, 4999, "Not bad. The basement has potential."],
+  [5000, 9999, "Impressive stacking. Epstein would be proud."],
+  [10000,99999,"Elite level. You are a true Clintonite."],
 ];
 
 // ============================================================
-// AUDIO ENGINE
+// AUDIO
 // ============================================================
 let audioCtx;
 function getCtx() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
   return audioCtx;
 }
-function beep(freq, dur, type='square', vol=0.2) {
+function beep(freq,dur,type='square',vol=0.2) {
   try {
-    const ctx = getCtx();
-    const o = ctx.createOscillator(), g = ctx.createGain();
+    const ctx=getCtx(), o=ctx.createOscillator(), g=ctx.createGain();
     o.connect(g); g.connect(ctx.destination);
-    o.type = type; o.frequency.value = freq;
-    g.gain.setValueAtTime(vol, ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
-    o.start(); o.stop(ctx.currentTime + dur);
+    o.type=type; o.frequency.value=freq;
+    g.gain.setValueAtTime(vol,ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);
+    o.start(); o.stop(ctx.currentTime+dur);
   } catch(e){}
 }
 
-let jazzInterval = null;
-let jazzSpeed = 800;
-
+let jazzTimer=null, jazzSpeed=800;
 function startJazz() {
   stopJazz();
-  const notes = [220, 261, 294, 329, 349, 392, 440, 493];
-  let i = 0;
+  const notes=[220,261,294,329,349,392,440,493];
   function playNote() {
-    const n = notes[Math.floor(Math.random() * notes.length)];
-    beep(n, 0.3, 'sine', 0.08);
-    if (Math.random() > 0.6) setTimeout(() => beep(n * 1.5, 0.2, 'sine', 0.05), 150);
-    jazzInterval = setTimeout(playNote, jazzSpeed + Math.random() * 200 - 100);
+    const n=notes[Math.floor(Math.random()*notes.length)];
+    beep(n,0.3,'sine',0.07);
+    if(Math.random()>.6) setTimeout(()=>beep(n*1.5,0.2,'sine',0.04),150);
+    jazzTimer=setTimeout(playNote, jazzSpeed+Math.random()*200-100);
   }
   playNote();
 }
-
-function stopJazz() {
-  if (jazzInterval) clearTimeout(jazzInterval);
-  jazzInterval = null;
-}
-
-function setJazzTempo(level) {
-  jazzSpeed = Math.max(200, 800 - (level - 1) * 80);
-}
-
-function playClear() { beep(880, 0.1); setTimeout(()=>beep(1047,0.2),100); }
-function playLand()  { beep(180, 0.1, 'sawtooth', 0.15); }
-function playGameOver() {
-  stopJazz();
-  [400,300,200,100].forEach((f,i) => setTimeout(()=>beep(f,0.3,'sawtooth',0.3),i*200));
-}
-function playEpstein() {
-  beep(523,0.1); setTimeout(()=>beep(659,0.1),100);
-  setTimeout(()=>beep(784,0.1),200); setTimeout(()=>beep(1047,0.3),300);
-}
+function stopJazz() { if(jazzTimer) clearTimeout(jazzTimer); jazzTimer=null; }
+function setJazzTempo(lvl) { jazzSpeed=Math.max(200,800-(lvl-1)*80); }
+function playClear()   { beep(880,.1); setTimeout(()=>beep(1047,.2),100); }
+function playLand()    { beep(180,.1,'sawtooth',.12); }
+function playEpstein() { [523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,.2,'square',.3),i*120)); }
+function playGameOver(){ stopJazz(); [400,300,200,100].forEach((f,i)=>setTimeout(()=>beep(f,.3,'sawtooth',.3),i*200)); }
 
 // ============================================================
 // GAME STATE
 // ============================================================
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
-const nextCanvas = document.getElementById('nextCanvas');
-const nCtx = nextCanvas.getContext('2d');
+const canvas  = document.getElementById('gameCanvas');
+const ctx     = canvas.getContext('2d');
+const nextCvs = document.getElementById('nextCanvas');
+const nCtx    = nextCvs.getContext('2d');
 
 let board, piece, nextPiece, score, level, lines, credibility;
-let gameRunning = false, paused = false;
+let gameRunning=false, paused=false;
 let dropInterval, dropDelay;
 let hillaryTimer;
+let savedBoard=null; // snapshot at game over for share card
 
-function createBoard() {
-  return Array.from({length: ROWS}, () => Array(COLS).fill(null));
-}
+function createBoard() { return Array.from({length:ROWS},()=>Array(COLS).fill(null)); }
 
 function randomPiece() {
-  // 5% chance of Epstein block
-  const isEpstein = Math.random() < 0.05;
-  const shapeIdx = Math.floor(Math.random() * SHAPES.length);
-  const color = isEpstein ? EPSTEIN_COLOR : COLORS[Math.floor(Math.random() * COLORS.length)];
-  return {
-    shape: SHAPES[shapeIdx],
-    color,
-    isEpstein,
-    x: Math.floor(COLS / 2) - Math.floor(SHAPES[shapeIdx][0].length / 2),
-    y: 0,
-  };
+  const isEpstein = Math.random()<.05;
+  const si = Math.floor(Math.random()*SHAPES.length);
+  const color = isEpstein ? EPSTEIN_COLOR : COLORS[Math.floor(Math.random()*COLORS.length)];
+  return { shape:SHAPES[si], color, isEpstein, x:Math.floor(COLS/2)-Math.floor(SHAPES[si][0].length/2), y:0 };
 }
 
 function startGame() {
-  document.getElementById('startScreen').style.display = 'none';
-  document.getElementById('gameOverScreen').style.display = 'none';
-  board = createBoard();
-  score = 0; level = 1; lines = 0; credibility = 100;
-  piece = randomPiece();
-  nextPiece = randomPiece();
-  gameRunning = true; paused = false;
-  dropDelay = 800;
-  updateDisplay();
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('gameOverScreen').style.display='none';
+  board=createBoard(); score=0; level=1; lines=0; credibility=100;
+  piece=randomPiece(); nextPiece=randomPiece();
+  gameRunning=true; paused=false; dropDelay=800;
+  updateDisplay(); drawNext();
   clearInterval(dropInterval);
-  dropInterval = setInterval(gameLoop, dropDelay);
-  startJazz();
-  scheduleHillary();
-  render();
+  dropInterval=setInterval(gameLoop,dropDelay);
+  startJazz(); scheduleHillary(); render();
 }
 
 // ============================================================
 // GAME LOGIC
 // ============================================================
-function rotate(shape) {
-  return shape[0].map((_, i) => shape.map(row => row[i]).reverse());
-}
+function rotate(shape) { return shape[0].map((_,i)=>shape.map(r=>r[i]).reverse()); }
 
-function valid(p, board, dx=0, dy=0, shape=null) {
-  const s = shape || p.shape;
-  return s.every((row, r) =>
-    row.every((cell, c) => {
-      if (!cell) return true;
-      const nx = p.x + c + dx, ny = p.y + r + dy;
-      return nx >= 0 && nx < COLS && ny < ROWS && (ny < 0 || !board[ny][nx]);
-    })
-  );
+function valid(p,brd,dx=0,dy=0,shape=null) {
+  const s=shape||p.shape;
+  return s.every((row,r)=>row.every((cell,c)=>{
+    if(!cell) return true;
+    const nx=p.x+c+dx, ny=p.y+r+dy;
+    return nx>=0&&nx<COLS&&ny<ROWS&&(ny<0||!brd[ny][nx]);
+  }));
 }
 
 function merge() {
-  piece.shape.forEach((row, r) =>
-    row.forEach((cell, c) => {
-      if (cell && piece.y + r >= 0) {
-        board[piece.y + r][piece.x + c] = piece.isEpstein ? 'epstein' : piece.color;
-      }
-    })
-  );
+  piece.shape.forEach((row,r)=>row.forEach((cell,c)=>{
+    if(cell&&piece.y+r>=0)
+      board[piece.y+r][piece.x+c]=piece.isEpstein?'epstein':piece.color;
+  }));
 }
 
 function clearLines() {
-  let cleared = 0;
-  for (let r = ROWS - 1; r >= 0; r--) {
-    if (board[r].every(cell => cell)) {
-      board.splice(r, 1);
-      board.unshift(Array(COLS).fill(null));
-      cleared++;
-      r++;
+  let cleared=0;
+  for(let r=ROWS-1;r>=0;r--) {
+    if(board[r].every(c=>c)) {
+      board.splice(r,1); board.unshift(Array(COLS).fill(null));
+      cleared++; r++;
     }
   }
-  if (cleared > 0) {
-    const pts = [0, 100, 300, 500, 800][Math.min(cleared, 4)] * level;
-    score += pts;
-    lines += cleared;
-    credibility = Math.max(0, credibility - cleared * 12);
-    playClear();
-    showRowClearMsg();
-
-    // Level up every 10 lines
-    const newLevel = Math.floor(lines / 10) + 1;
-    if (newLevel > level) {
-      level = newLevel;
-      dropDelay = Math.max(100, 800 - (level - 1) * 70);
+  if(cleared>0) {
+    score+=[0,100,300,500,800][Math.min(cleared,4)]*level;
+    lines+=cleared;
+    credibility=Math.max(0,credibility-cleared*12);
+    playClear(); showRowMsg("EPSTEIN DIDN'T KILL HIMSELF 👁️");
+    const nl=Math.floor(lines/10)+1;
+    if(nl>level) {
+      level=nl; dropDelay=Math.max(100,800-(level-1)*70);
       clearInterval(dropInterval);
-      dropInterval = setInterval(gameLoop, dropDelay);
+      dropInterval=setInterval(gameLoop,dropDelay);
       setJazzTempo(level);
     }
     updateDisplay();
@@ -517,233 +491,156 @@ function clearLines() {
 }
 
 function epsteinClear() {
-  // Clear the bottom non-empty row
-  for (let r = ROWS - 1; r >= 0; r--) {
-    if (board[r].some(cell => cell)) {
-      board.splice(r, 1);
-      board.unshift(Array(COLS).fill(null));
-      score += 200 * level;
-      playEpstein();
-      showRowClearMsg("EPSTEIN SPECIAL 🌟");
-      updateDisplay();
-      break;
+  for(let r=ROWS-1;r>=0;r--) {
+    if(board[r].some(c=>c)) {
+      board.splice(r,1); board.unshift(Array(COLS).fill(null));
+      score+=200*level; playEpstein();
+      showRowMsg("★ EPSTEIN SPECIAL — ROW CLEARED ★");
+      updateDisplay(); break;
     }
   }
 }
 
 function gameLoop() {
-  if (!gameRunning || paused) return;
-  if (valid(piece, board, 0, 1)) {
-    piece.y++;
-  } else {
+  if(!gameRunning||paused) return;
+  if(valid(piece,board,0,1)) { piece.y++; }
+  else {
     merge();
-    if (piece.isEpstein) epsteinClear();
-    else clearLines();
+    if(piece.isEpstein) epsteinClear(); else clearLines();
     playLand();
-    piece = nextPiece;
-    nextPiece = randomPiece();
-    drawNext();
-    if (!valid(piece, board)) {
-      endGame();
-      return;
-    }
+    piece=nextPiece; nextPiece=randomPiece(); drawNext();
+    if(!valid(piece,board)) { endGame(); return; }
   }
   render();
 }
 
 function endGame() {
-  gameRunning = false;
-  stopJazz();
-  clearInterval(dropInterval);
-  clearTimeout(hillaryTimer);
-  playGameOver();
-  flashFeds();
-
-  document.getElementById('finalScoreText').textContent = `Score: ${score} | Level: ${level}`;
-  const verdicts = [
-    [0, 999, "You barely tried. Bill is disappointed."],
-    [1000, 4999, "Not bad. The basement has potential."],
-    [5000, 9999, "Impressive stacking. Epstein would be proud."],
-    [10000, 99999, "Elite level. You are a true Clintonite."],
-  ];
-  let v = verdicts[0];
-  for (const vv of verdicts) if (score >= vv[0] && score <= vv[1]) { v = vv; break; }
-  document.getElementById('gameOverVerdict').textContent = v[2];
-  document.getElementById('gameOverScreen').style.display = 'flex';
+  gameRunning=false;
+  savedBoard=board.map(r=>[...r]); // snapshot for share card
+  stopJazz(); clearInterval(dropInterval); clearTimeout(hillaryTimer);
+  playGameOver(); flashFeds();
+  document.getElementById('finalScoreText').textContent=`Score: ${score.toLocaleString()} — Level ${level}`;
+  let v=VERDICTS[0];
+  for(const vv of VERDICTS) if(score>=vv[0]&&score<=vv[1]){v=vv;break;}
+  document.getElementById('gameOverVerdict').textContent=v[2];
+  document.getElementById('playerName').value='';
+  document.getElementById('gameOverScreen').style.display='flex';
 }
 
 // ============================================================
 // RENDERING
 // ============================================================
-function drawCell(context, x, y, color, small=false) {
-  const s = small ? 16 : CELL;
-  const px = small ? x * s + 2 : x * CELL;
-  const py = small ? y * s + 2 : y * CELL;
-
-  const isEpstein = color === 'epstein' || color === EPSTEIN_COLOR;
-
-  if (isEpstein) {
-    // Gold star block
-    context.fillStyle = EPSTEIN_COLOR;
-    context.fillRect(px+1, py+1, s-2, s-2);
-    context.fillStyle = '#000';
-    context.font = `bold ${Math.floor(s*0.6)}px Arial`;
-    context.textAlign = 'center';
-    context.fillText('★', px + s/2, py + s*0.75);
-  } else {
-    // Little girl silhouette
-    context.fillStyle = color;
-    // Dress/body (triangle)
-    context.beginPath();
-    context.moveTo(px + s*0.5, py + s*0.3);
-    context.lineTo(px + s*0.15, py + s*0.95);
-    context.lineTo(px + s*0.85, py + s*0.95);
-    context.closePath();
-    context.fill();
-    // Head (circle)
-    context.beginPath();
-    context.arc(px + s*0.5, py + s*0.18, s*0.14, 0, Math.PI*2);
-    context.fill();
-    // Hair bow
-    context.fillStyle = lighten(color);
-    context.beginPath();
-    context.arc(px + s*0.38, py + s*0.08, s*0.08, 0, Math.PI*2);
-    context.fill();
-    context.beginPath();
-    context.arc(px + s*0.62, py + s*0.08, s*0.08, 0, Math.PI*2);
-    context.fill();
-    // Eyes
-    context.fillStyle = '#000';
-    context.fillRect(px + s*0.43, py + s*0.14, s*0.04, s*0.04);
-    context.fillRect(px + s*0.53, py + s*0.14, s*0.04, s*0.04);
-  }
+function lighten(hex) {
+  try {
+    const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+    return `rgb(${Math.min(255,r+60)},${Math.min(255,g+60)},${Math.min(255,b+60)})`;
+  } catch(e){ return '#ffaacc'; }
 }
 
-function lighten(hex) {
-  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
-  return `rgb(${Math.min(255,r+60)},${Math.min(255,g+60)},${Math.min(255,b+60)})`;
+function drawCell(c2d,x,y,color,cellSize=CELL) {
+  const px=x*cellSize, py=y*cellSize;
+  const isEp=(color==='epstein'||color===EPSTEIN_COLOR);
+  if(isEp) {
+    c2d.fillStyle=EPSTEIN_COLOR;
+    c2d.fillRect(px+1,py+1,cellSize-2,cellSize-2);
+    c2d.fillStyle='#000';
+    c2d.font=`bold ${Math.floor(cellSize*.65)}px Arial`;
+    c2d.textAlign='center';
+    c2d.fillText('★',px+cellSize/2,py+cellSize*.78);
+  } else {
+    c2d.fillStyle=color;
+    c2d.beginPath();
+    c2d.moveTo(px+cellSize*.5, py+cellSize*.3);
+    c2d.lineTo(px+cellSize*.12,py+cellSize*.95);
+    c2d.lineTo(px+cellSize*.88,py+cellSize*.95);
+    c2d.closePath(); c2d.fill();
+    c2d.beginPath();
+    c2d.arc(px+cellSize*.5,py+cellSize*.18,cellSize*.14,0,Math.PI*2);
+    c2d.fill();
+    c2d.fillStyle=lighten(color);
+    [.36,.64].forEach(bx=>{
+      c2d.beginPath();
+      c2d.arc(px+cellSize*bx,py+cellSize*.07,cellSize*.07,0,Math.PI*2);
+      c2d.fill();
+    });
+    c2d.fillStyle='#000';
+    c2d.fillRect(px+cellSize*.43,py+cellSize*.14,cellSize*.04,cellSize*.04);
+    c2d.fillRect(px+cellSize*.53,py+cellSize*.14,cellSize*.04,cellSize*.04);
+  }
 }
 
 function render() {
-  // Background
-  ctx.fillStyle = '#1a0005';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle='#1a0005';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.strokeStyle='rgba(80,0,0,.4)'; ctx.lineWidth=.5;
+  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++) ctx.strokeRect(c*CELL,r*CELL,CELL,CELL);
 
-  // Grid lines
-  ctx.strokeStyle = 'rgba(80,0,0,0.4)';
-  ctx.lineWidth = 0.5;
-  for (let r = 0; r < ROWS; r++) {
-    for (let c = 0; c < COLS; c++) {
-      ctx.strokeRect(c*CELL, r*CELL, CELL, CELL);
-    }
+  ctx.fillStyle='rgba(80,20,0,.12)';
+  ctx.beginPath(); ctx.ellipse(canvas.width/2,canvas.height*.4,60,80,0,0,Math.PI*2); ctx.fill();
+  ctx.font='bold 11px Arial'; ctx.fillStyle='rgba(255,50,0,.18)'; ctx.textAlign='center';
+  ctx.fillText('BC',canvas.width/2,canvas.height*.4);
+
+  board.forEach((row,r)=>row.forEach((cell,c)=>{ if(cell) drawCell(ctx,c,r,cell); }));
+
+  if(gameRunning&&!paused) {
+    piece.shape.forEach((row,r)=>row.forEach((cell,c)=>{
+      if(cell) drawCell(ctx,piece.x+c,piece.y+r,piece.isEpstein?EPSTEIN_COLOR:piece.color);
+    }));
+    let ghost={...piece,y:piece.y};
+    while(valid(ghost,board,0,1)) ghost.y++;
+    piece.shape.forEach((row,r)=>row.forEach((cell,c)=>{
+      if(cell&&ghost.y!==piece.y) {
+        ctx.fillStyle='rgba(255,255,255,.1)';
+        ctx.fillRect((ghost.x+c)*CELL+2,(ghost.y+r)*CELL+2,CELL-4,CELL-4);
+      }
+    }));
   }
 
-  // Bill silhouette in background (simple shape)
-  ctx.fillStyle = 'rgba(80,20,0,0.15)';
-  ctx.beginPath();
-  ctx.ellipse(canvas.width/2, canvas.height*0.4, 60, 80, 0, 0, Math.PI*2);
-  ctx.fill();
-  ctx.font = 'bold 11px Arial';
-  ctx.fillStyle = 'rgba(255,50,0,0.2)';
-  ctx.textAlign = 'center';
-  ctx.fillText('BC', canvas.width/2, canvas.height*0.4);
-
-  // Board
-  board.forEach((row, r) =>
-    row.forEach((cell, c) => {
-      if (cell) drawCell(ctx, c, r, cell);
-    })
-  );
-
-  // Active piece
-  if (gameRunning && !paused) {
-    piece.shape.forEach((row, r) =>
-      row.forEach((cell, c) => {
-        if (cell) drawCell(ctx, piece.x + c, piece.y + r, piece.isEpstein ? EPSTEIN_COLOR : piece.color);
-      })
-    );
-
-    // Ghost piece
-    let ghost = {...piece, y: piece.y};
-    while (valid(ghost, board, 0, 1)) ghost.y++;
-    piece.shape.forEach((row, r) =>
-      row.forEach((cell, c) => {
-        if (cell && ghost.y !== piece.y) {
-          ctx.fillStyle = 'rgba(255,255,255,0.1)';
-          ctx.fillRect((ghost.x+c)*CELL+2, (ghost.y+r)*CELL+2, CELL-4, CELL-4);
-        }
-      })
-    );
-  }
-
-  if (paused) {
-    ctx.fillStyle = 'rgba(0,0,0,0.7)';
+  if(paused) {
+    ctx.fillStyle='rgba(0,0,0,.7)';
     ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = '#ffff00';
-    ctx.font = 'bold 24px Comic Sans MS';
-    ctx.textAlign = 'center';
-    ctx.fillText('PAUSED', canvas.width/2, canvas.height/2);
-    ctx.font = '14px Comic Sans MS';
-    ctx.fillText('(Bill is waiting)', canvas.width/2, canvas.height/2 + 30);
+    ctx.fillStyle='#ffff00'; ctx.font='bold 24px Comic Sans MS'; ctx.textAlign='center';
+    ctx.fillText('PAUSED',canvas.width/2,canvas.height/2);
+    ctx.font='14px Comic Sans MS'; ctx.fillStyle='#aaa';
+    ctx.fillText('(Bill is waiting)',canvas.width/2,canvas.height/2+28);
   }
 }
 
 function drawNext() {
-  nCtx.fillStyle = '#111';
-  nCtx.fillRect(0, 0, 80, 80);
-  if (!nextPiece) return;
-  const s = nextPiece.shape;
-  const ox = Math.floor((4 - s[0].length) / 2);
-  const oy = Math.floor((4 - s.length) / 2);
-  s.forEach((row, r) =>
-    row.forEach((cell, c) => {
-      if (cell) drawCell(nCtx, ox+c, oy+r, nextPiece.isEpstein ? EPSTEIN_COLOR : nextPiece.color, true);
-    })
-  );
+  nCtx.fillStyle='#111'; nCtx.fillRect(0,0,80,80);
+  if(!nextPiece) return;
+  const s=nextPiece.shape;
+  const ox=Math.floor((4-s[0].length)/2), oy=Math.floor((4-s.length)/2);
+  s.forEach((row,r)=>row.forEach((cell,c)=>{
+    if(cell) drawCell(nCtx,ox+c,oy+r,nextPiece.isEpstein?EPSTEIN_COLOR:nextPiece.color,16);
+  }));
 }
 
 function updateDisplay() {
-  document.getElementById('scoreDisplay').textContent = score.toLocaleString();
-  document.getElementById('levelDisplay').textContent = level;
-  const pct = Math.max(0, credibility);
-  document.getElementById('credBar').style.width = pct + '%';
-  document.getElementById('credBar').style.background = pct > 60 ? 'linear-gradient(90deg,#00aa00,#aaff00)' : pct > 30 ? 'linear-gradient(90deg,#aaaa00,#ffaa00)' : 'linear-gradient(90deg,#aa0000,#ff4400)';
-  document.getElementById('credPct').textContent = pct + '%';
+  document.getElementById('scoreDisplay').textContent=score.toLocaleString();
+  document.getElementById('levelDisplay').textContent=level;
+  const pct=Math.max(0,credibility);
+  document.getElementById('credBar').style.width=pct+'%';
+  document.getElementById('credBar').style.background=
+    pct>60?'linear-gradient(90deg,#00aa00,#aaff00)':
+    pct>30?'linear-gradient(90deg,#aaaa00,#ffaa00)':
+           'linear-gradient(90deg,#aa0000,#ff4400)';
+  document.getElementById('credPct').textContent=pct+'%';
 }
 
 // ============================================================
 // CONTROLS
 // ============================================================
-document.addEventListener('keydown', e => {
-  if (!gameRunning) return;
-  if (e.key === 'p' || e.key === 'P') {
-    paused = !paused;
-    if (!paused) render();
-    return;
-  }
-  if (paused) return;
-
+document.addEventListener('keydown',e=>{
+  if(!gameRunning) return;
+  if(e.key==='p'||e.key==='P'){paused=!paused;if(!paused)render();return;}
+  if(paused) return;
   switch(e.key) {
-    case 'ArrowLeft':
-      if (valid(piece, board, -1, 0)) { piece.x--; render(); }
-      break;
-    case 'ArrowRight':
-      if (valid(piece, board, 1, 0)) { piece.x++; render(); }
-      break;
-    case 'ArrowDown':
-      if (valid(piece, board, 0, 1)) { piece.y++; score++; render(); }
-      break;
-    case 'ArrowUp': {
-      const rot = rotate(piece.shape);
-      if (valid(piece, board, 0, 0, rot)) { piece.shape = rot; render(); }
-      break;
-    }
-    case ' ': {
-      e.preventDefault();
-      while (valid(piece, board, 0, 1)) { piece.y++; score += 2; }
-      gameLoop();
-      break;
-    }
+    case'ArrowLeft':  if(valid(piece,board,-1,0)){piece.x--;render();}break;
+    case'ArrowRight': if(valid(piece,board,1,0)){piece.x++;render();}break;
+    case'ArrowDown':  if(valid(piece,board,0,1)){piece.y++;score++;render();}break;
+    case'ArrowUp': { const rot=rotate(piece.shape); if(valid(piece,board,0,0,rot)){piece.shape=rot;render();}break; }
+    case' ': { e.preventDefault(); while(valid(piece,board,0,1)){piece.y++;score+=2;} gameLoop();break; }
   }
   updateDisplay();
 });
@@ -751,42 +648,236 @@ document.addEventListener('keydown', e => {
 // ============================================================
 // EFFECTS
 // ============================================================
-function showRowClearMsg(msg) {
-  const el = document.getElementById('rowClearMsg');
-  el.textContent = msg || "EPSTEIN DIDN'T KILL HIMSELF 👁️";
-  el.style.display = 'block';
-  setTimeout(() => el.style.display = 'none', 1500);
+function showRowMsg(msg) {
+  const el=document.getElementById('rowClearMsg');
+  el.textContent=msg; el.style.display='block';
+  setTimeout(()=>el.style.display='none',1600);
 }
-
 function flashFeds() {
-  const el = document.createElement('div');
-  el.className = 'feds-flash';
-  document.body.appendChild(el);
-  setTimeout(() => el.remove(), 1200);
+  const el=document.createElement('div'); el.className='feds-flash';
+  document.body.appendChild(el); setTimeout(()=>el.remove(),1200);
 }
-
 function scheduleHillary() {
-  const delay = 15000 + Math.random() * 20000;
-  hillaryTimer = setTimeout(() => {
-    if (!gameRunning) return;
-    const popup = document.getElementById('hillaryPopup');
-    document.getElementById('hillaryMsg').textContent =
-      HILLARY_MSGS[Math.floor(Math.random() * HILLARY_MSGS.length)];
-    popup.style.display = 'block';
-    beep(600, 0.1, 'sine', 0.15);
-    setTimeout(() => { popup.style.display = 'none'; }, 4000);
+  const d=15000+Math.random()*20000;
+  hillaryTimer=setTimeout(()=>{
+    if(!gameRunning) return;
+    document.getElementById('hillaryMsg').textContent=HILLARY_MSGS[Math.floor(Math.random()*HILLARY_MSGS.length)];
+    document.getElementById('hillaryPopup').style.display='block';
+    beep(600,.1,'sine',.12);
+    setTimeout(()=>document.getElementById('hillaryPopup').style.display='none',4000);
     scheduleHillary();
-  }, delay);
+  },d);
+}
+function closeHillary(){ document.getElementById('hillaryPopup').style.display='none'; }
+
+// ============================================================
+// LEADERBOARD
+// ============================================================
+async function submitScore() {
+  const name = document.getElementById('playerName').value.trim() || 'Anonymous Goy';
+  const entry = { name, score, level, created_at: new Date().toISOString() };
+
+  if (SUPABASE_URL && SUPABASE_KEY) {
+    try {
+      await fetch(`${SUPABASE_URL}/rest/v1/leaderboard`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(entry)
+      });
+    } catch(e) { console.warn('Supabase write failed, saving locally', e); }
+  }
+
+  // Always save locally too
+  const local = getLocalLB();
+  local.push(entry);
+  local.sort((a,b)=>b.score-a.score);
+  localStorage.setItem('clinton_lb', JSON.stringify(local.slice(0,100)));
+
+  showLeaderboard(name);
 }
 
-function closeHillary() {
-  document.getElementById('hillaryPopup').style.display = 'none';
+function getLocalLB() {
+  try { return JSON.parse(localStorage.getItem('clinton_lb')||'[]'); } catch(e){ return []; }
 }
 
-function shareScore() {
-  const text = `I stacked ${score.toLocaleString()} in Clinton's Basement before the feds showed up\n\nclintonbasement.megalio.xyz`;
-  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
+async function showLeaderboard(highlightName='') {
+  document.getElementById('lbModal').classList.add('active');
+  const tbody = document.getElementById('lbBody');
+  tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#666;padding:12px;">Loading...</td></tr>';
+
+  let entries = [];
+
+  if (SUPABASE_URL && SUPABASE_KEY) {
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/leaderboard?order=score.desc&limit=20`, {
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+      });
+      entries = await res.json();
+    } catch(e) { entries = []; }
+  }
+
+  if (!entries.length) entries = getLocalLB().slice(0,20);
+
+  if (!entries.length) {
+    tbody.innerHTML='<tr><td colspan="4" style="text-align:center;color:#666;padding:12px;">No scores yet. Be the first.</td></tr>';
+    return;
+  }
+
+  const medals = ['🥇','🥈','🥉'];
+  tbody.innerHTML = entries.map((e,i)=>{
+    const rank = medals[i] || `${i+1}.`;
+    const isMe = e.name === highlightName;
+    const goldCls = i<3?'gold-rank':'';
+    return `<tr class="${isMe?'me':''}">
+      <td class="lb-rank ${goldCls}">${rank}</td>
+      <td>${e.name}</td>
+      <td><b>${Number(e.score).toLocaleString()}</b></td>
+      <td>Lvl ${e.level}</td>
+    </tr>`;
+  }).join('');
 }
+
+// ============================================================
+// SHARE CARD
+// ============================================================
+function generateShareCard() {
+  document.getElementById('shareModal').classList.add('active');
+  const sc = document.getElementById('shareCardCanvas');
+  const sCtx = sc.getContext('2d');
+
+  // Background — dark brick
+  sCtx.fillStyle='#1a0005';
+  sCtx.fillRect(0,0,520,320);
+
+  // Brick pattern
+  sCtx.strokeStyle='rgba(80,0,0,.5)'; sCtx.lineWidth=.5;
+  for(let r=0;r<320;r+=30) for(let c=0;c<520;c+=60) sCtx.strokeRect(c+(r%60==0?0:30),r,60,30);
+
+  // Title
+  sCtx.fillStyle='#ff4400';
+  sCtx.font='bold 20px "Comic Sans MS", cursive';
+  sCtx.textAlign='left';
+  sCtx.fillText("🏚️ CLINTON'S BASEMENT", 12, 30);
+
+  // Draw mini board (left side)
+  const miniCell=12, boardW=COLS*miniCell, boardH=ROWS*miniCell;
+  const bx=12, by=42;
+  sCtx.fillStyle='#0a0005';
+  sCtx.fillRect(bx,by,boardW,boardH);
+  if(savedBoard) {
+    savedBoard.forEach((row,r)=>row.forEach((cell,c)=>{
+      if(cell) {
+        const px=bx+c*miniCell, py=by+r*miniCell;
+        const isEp=(cell==='epstein'||cell===EPSTEIN_COLOR);
+        sCtx.fillStyle=isEp?EPSTEIN_COLOR:cell;
+        if(isEp) {
+          sCtx.fillRect(px+1,py+1,miniCell-2,miniCell-2);
+          sCtx.fillStyle='#000';
+          sCtx.font=`bold ${miniCell-2}px Arial`;
+          sCtx.textAlign='center';
+          sCtx.fillText('★',px+miniCell/2,py+miniCell*.85);
+        } else {
+          sCtx.beginPath();
+          sCtx.moveTo(px+miniCell*.5,py+miniCell*.3);
+          sCtx.lineTo(px+miniCell*.1,py+miniCell*.95);
+          sCtx.lineTo(px+miniCell*.9,py+miniCell*.95);
+          sCtx.closePath(); sCtx.fill();
+          sCtx.beginPath();
+          sCtx.arc(px+miniCell*.5,py+miniCell*.18,miniCell*.14,0,Math.PI*2);
+          sCtx.fill();
+        }
+      }
+    }));
+  }
+  sCtx.strokeStyle='rgba(255,50,0,.4)'; sCtx.lineWidth=1;
+  sCtx.strokeRect(bx,by,boardW,boardH);
+
+  // Right panel
+  const rx = bx + boardW + 16;
+
+  // THE FEDS ARE HERE
+  sCtx.fillStyle='#ff2200';
+  sCtx.font='bold 18px "Comic Sans MS"';
+  sCtx.textAlign='left';
+  sCtx.fillText('🚨 THE FEDS ARE HERE', rx, 64);
+
+  // Score
+  sCtx.fillStyle='#ffff00';
+  sCtx.font='bold 28px "Comic Sans MS"';
+  sCtx.fillText(score.toLocaleString(), rx, 106);
+  sCtx.fillStyle='#aaa'; sCtx.font='13px "Comic Sans MS"';
+  sCtx.fillText(`SCORE`, rx, 84);
+  sCtx.fillText(`Level ${level}`, rx+80, 84);
+
+  // Credibility
+  sCtx.fillStyle='#888'; sCtx.font='11px "Comic Sans MS"';
+  sCtx.fillText("Bill's Credibility:", rx, 130);
+  const barW=220, barH=14, barX=rx, barY=136;
+  sCtx.fillStyle='#333'; sCtx.fillRect(barX,barY,barW,barH);
+  const pct=Math.max(0,credibility)/100;
+  sCtx.fillStyle=pct>.6?'#44cc44':pct>.3?'#ccaa00':'#cc2200';
+  sCtx.fillRect(barX,barY,barW*pct,barH);
+  sCtx.strokeStyle='#666'; sCtx.strokeRect(barX,barY,barW,barH);
+  sCtx.fillStyle='#fff'; sCtx.font='9px Arial'; sCtx.textAlign='center';
+  sCtx.fillText(`${Math.max(0,credibility)}%`,barX+barW/2,barY+10);
+  sCtx.textAlign='left';
+
+  // Hillary
+  sCtx.font='36px serif';
+  sCtx.fillText('👩‍💼😏', rx, 190);
+  sCtx.fillStyle='#ffaacc'; sCtx.font='italic 11px "Comic Sans MS"';
+  sCtx.fillText('"I\'ve already deleted the emails."', rx, 208);
+  sCtx.fillStyle='#888'; sCtx.font='10px "Comic Sans MS"';
+  sCtx.fillText('— Hillary Clinton, probably', rx, 222);
+
+  // Epstein line
+  sCtx.fillStyle='#ffd700'; sCtx.font='bold 12px "Comic Sans MS"';
+  sCtx.fillText('★ EPSTEIN DIDN\'T KILL HIMSELF', rx, 250);
+
+  // Verdict
+  let verdict='';
+  for(const v of VERDICTS) if(score>=v[0]&&score<=v[1]){verdict=v[2];break;}
+  sCtx.fillStyle='#cc8888'; sCtx.font='10px "Comic Sans MS"';
+  wrapText(sCtx, verdict, rx, 272, 240, 14);
+
+  // Footer
+  sCtx.fillStyle='rgba(0,0,0,.5)'; sCtx.fillRect(0,300,520,20);
+  sCtx.fillStyle='#ff69b4'; sCtx.font='bold 11px "Comic Sans MS"'; sCtx.textAlign='center';
+  sCtx.fillText('clintonbasement.megalio.xyz — MEGALIO NFT ON MEGAETH', 260, 314);
+}
+
+function wrapText(c2d,text,x,y,maxW,lineH) {
+  const words=text.split(' '); let line='';
+  for(const w of words) {
+    const test=line+w+' ';
+    if(c2d.measureText(test).width>maxW&&line) { c2d.fillText(line,x,y); line=w+' '; y+=lineH; }
+    else line=test;
+  }
+  c2d.fillText(line,x,y);
+}
+
+function downloadCard() {
+  const sc=document.getElementById('shareCardCanvas');
+  const a=document.createElement('a');
+  a.download=`clintons-basement-${score}.png`;
+  a.href=sc.toDataURL('image/png');
+  a.click();
+}
+
+function tweetCard() {
+  const text=`🏚️ The feds showed up before I could finish stacking\n\nScore: ${score.toLocaleString()} — Level ${level}\nBill's Credibility: ${Math.max(0,credibility)}%\n\nEpstein didn't kill himself 👁️\n\nclintonbasement.megalio.xyz`;
+  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`,'_blank');
+}
+
+// ============================================================
+// UTILS
+// ============================================================
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
 // Initial render
 render();
