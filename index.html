@@ -21,7 +21,7 @@
 
     .layout {
       display: flex; gap: 12px; align-items: flex-start;
-      position: relative; z-index: 10; transform-origin: top center;
+      position: relative; z-index: 10; transform-origin: center center;
     }
 
     .window {
@@ -325,14 +325,13 @@ const epsteinFaceImg = new Image(); epsteinFaceImg.src = 'img/epstein-face.jpg';
 // ============================================================
 function scaleGame() {
   const layout = document.getElementById('layout');
-  const naturalW = CANVAS_W + 12 + 178 + 24; // canvas + gap + side panel + borders
-  const naturalH = CANVAS_H + 10;             // canvas + tiny border (no title bar)
-  const scale = Math.min(
-    (window.innerWidth  - 20) / naturalW,
-    (window.innerHeight - 60) / naturalH,     // 60 = marquee + breathing room
-    2.5
-  );
-  layout.style.transform = `scale(${Math.max(0.45, scale)})`;
+  const naturalW = CANVAS_W + 12 + 178 + 24;
+  const naturalH = CANVAS_H + 10; // no title bar, just border
+  // Reserve space for marquee (25px) + browser chrome buffer (60px)
+  const availH = window.innerHeight - 85;
+  const availW = window.innerWidth - 20;
+  const scale = Math.min(availW / naturalW, availH / naturalH, 2.5);
+  layout.style.transform = `scale(${Math.max(0.4, scale)})`;
 }
 window.addEventListener('resize', scaleGame);
 
