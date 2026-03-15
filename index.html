@@ -311,6 +311,7 @@ const VERDICTS = [
 const hillaryImg = new Image(); hillaryImg.src = 'img/hillary.jpg';
 const billEpsteinImg = new Image(); billEpsteinImg.src = 'img/bill-epstein.jpg';
 const billFaceImg = new Image(); billFaceImg.src = 'img/bill-face.jpg';
+const epsteinFaceImg = new Image(); epsteinFaceImg.src = 'img/epstein-face.jpg';
 
 // ============================================================
 // RESPONSIVE SCALING
@@ -592,9 +593,24 @@ function lighten(hex){try{const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.sli
 function drawCell(c2d,x,y,color,s=CELL){
   const px=x*s,py=y*s;
   if(color==='epstein'||color===EPSTEIN_COLOR){
-    c2d.fillStyle=EPSTEIN_COLOR;c2d.fillRect(px+1,py+1,s-2,s-2);
-    c2d.fillStyle='#000';c2d.font=`bold ${Math.floor(s*.65)}px Arial`;c2d.textAlign='center';
-    c2d.fillText('★',px+s/2,py+s*.78);return;
+    // Gold background
+    c2d.fillStyle=EPSTEIN_COLOR; c2d.fillRect(px+1,py+1,s-2,s-2);
+    // Epstein face photo
+    if(epsteinFaceImg.complete && epsteinFaceImg.naturalWidth>0){
+      c2d.save();
+      c2d.beginPath(); c2d.rect(px+2,py+2,s-4,s-4); c2d.clip();
+      const iw=epsteinFaceImg.naturalWidth, ih=epsteinFaceImg.naturalHeight;
+      // Crop to face (top 55% of portrait)
+      c2d.drawImage(epsteinFaceImg,0,0,iw,ih*0.55,px+2,py+2,s-4,s-4);
+      c2d.restore();
+      // Gold border
+      c2d.strokeStyle=EPSTEIN_COLOR; c2d.lineWidth=2;
+      c2d.strokeRect(px+1,py+1,s-2,s-2);
+    } else {
+      c2d.fillStyle='#000'; c2d.font=`bold ${Math.floor(s*.65)}px Arial`; c2d.textAlign='center';
+      c2d.fillText('★',px+s/2,py+s*.78);
+    }
+    return;
   }
   // Hair back (pigtails)
   c2d.fillStyle=HAIR;
@@ -823,6 +839,7 @@ scaleGame();
 render();
 billEpsteinImg.onload = () => { if (!gameRunning) render(); };
 billFaceImg.onload = () => render();
+epsteinFaceImg.onload = () => render();
 </script>
 </body>
 </html>
