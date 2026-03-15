@@ -21,7 +21,7 @@
 
     .layout {
       display: flex; gap: 12px; align-items: flex-start;
-      position: relative; z-index: 10; transform-origin: center center;
+      position: relative; z-index: 10; transform-origin: top center;
     }
 
     .window {
@@ -29,6 +29,13 @@
       border-color: #ffffff #808080 #808080 #ffffff;
       box-shadow: 4px 4px 0 #000;
     }
+
+    /* Game window: no bright border — canvas IS the environment */
+    .game-window {
+      border: 2px solid #222 !important;
+      box-shadow: 6px 6px 0 #000 !important;
+    }
+    .game-window .title-bar { display: none; }
     .title-bar {
       background: linear-gradient(90deg, #000080, #1084d0);
       color: white; padding: 3px 6px;
@@ -319,10 +326,10 @@ const epsteinFaceImg = new Image(); epsteinFaceImg.src = 'img/epstein-face.jpg';
 function scaleGame() {
   const layout = document.getElementById('layout');
   const naturalW = CANVAS_W + 12 + 178 + 24; // canvas + gap + side panel + borders
-  const naturalH = CANVAS_H + 26;             // canvas + title bar
+  const naturalH = CANVAS_H + 10;             // canvas + tiny border (no title bar)
   const scale = Math.min(
-    (window.innerWidth - 16) / naturalW,
-    (window.innerHeight - 46) / naturalH,
+    (window.innerWidth  - 20) / naturalW,
+    (window.innerHeight - 60) / naturalH,     // 60 = marquee + breathing room
     2.5
   );
   layout.style.transform = `scale(${Math.max(0.45, scale)})`;
@@ -661,6 +668,12 @@ function render() {
   drawBrickWall(ctx,gx+gw,0,RIGHT_W,CANVAS_H);                     // right wall
   drawCeiling(ctx,0,0,CANVAS_W,GRID_Y);                            // ceiling
   drawFloor(ctx,0,gy+gh,CANVAS_W,FLOOR_H);                         // floor
+
+  // === 2b. TITLE on ceiling ===
+  ctx.fillStyle='rgba(255,220,80,0.55)';
+  ctx.font=`bold ${GRID_Y > 50 ? 11 : 9}px "Comic Sans MS"`;
+  ctx.textAlign='center';
+  ctx.fillText("🏚️ CLINTON'S BASEMENT", CANVAS_W/2, GRID_Y*0.52);
 
   // === 3. HANGING LIGHT BULB ===
   drawLightBulb(ctx,gx+gw/2,GRID_Y);
