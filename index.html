@@ -44,12 +44,12 @@
       color: #000; margin-left: 2px; cursor: pointer;
     }
 
-    .game-window .window-body { padding: 6px; background: #000; position: relative; }
-    canvas#gameCanvas { display: block; border: 2px inset #808080; image-rendering: pixelated; }
+    .game-window .window-body { padding: 0; background: #000; position: relative; }
+    canvas#gameCanvas { display: block; image-rendering: pixelated; }
 
     /* OVERLAYS */
     .overlay {
-      position: absolute; inset: 6px;
+      position: absolute; inset: 0;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       background: rgba(0,0,0,0.88); z-index: 20;
@@ -155,7 +155,7 @@
       <div class="title-bar-btns"><span>_</span><span>□</span><span>✕</span></div>
     </div>
     <div class="window-body" style="position:relative;">
-      <canvas id="gameCanvas" width="400" height="580"></canvas>
+      <canvas id="gameCanvas"></canvas>
       <div id="rowClearMsg"></div>
 
       <div class="overlay" id="startScreen">
@@ -272,12 +272,12 @@ const SUPABASE_URL = '', SUPABASE_KEY = '';
 // Grid dimensions
 const COLS = 10, ROWS = 20, CELL = 24;
 // Canvas layout
-const GRID_X = 52;   // left wall width
-const GRID_Y = 62;   // ceiling height
-const RIGHT_W = 96;  // right area (Bill lives here)
-const FLOOR_H = 38;  // floor height
-const CANVAS_W = GRID_X + COLS * CELL + RIGHT_W;  // 52+240+96 = 388 → 400
-const CANVAS_H = GRID_Y + ROWS * CELL + FLOOR_H;  // 62+480+38 = 580
+const GRID_X = 52;    // left wall width
+const GRID_Y = 60;    // ceiling height
+const RIGHT_W = 112;  // right area (Bill + portrait)
+const FLOOR_H = 42;   // floor height
+const CANVAS_W = GRID_X + COLS * CELL + RIGHT_W;  // 52+240+112 = 404
+const CANVAS_H = GRID_Y + ROWS * CELL + FLOOR_H;  // 60+480+42 = 582
 
 const DRESS_COLORS = ['#ff69b4','#ff1493','#cc44cc','#ee5599','#ff4488','#dd3377','#ff77aa'];
 const EPSTEIN_COLOR = '#ffd700';
@@ -318,11 +318,11 @@ const epsteinFaceImg = new Image(); epsteinFaceImg.src = 'img/epstein-face.jpg';
 // ============================================================
 function scaleGame() {
   const layout = document.getElementById('layout');
-  const naturalW = CANVAS_W + 12 + 178 + 30; // canvas + gap + panel + margins
-  const naturalH = CANVAS_H + 40;             // canvas + title bar + padding
+  const naturalW = CANVAS_W + 12 + 178 + 24; // canvas + gap + side panel + borders
+  const naturalH = CANVAS_H + 26;             // canvas + title bar
   const scale = Math.min(
-    (window.innerWidth - 20) / naturalW,
-    (window.innerHeight - 50) / naturalH,
+    (window.innerWidth - 16) / naturalW,
+    (window.innerHeight - 46) / naturalH,
     2.5
   );
   layout.style.transform = `scale(${Math.max(0.45, scale)})`;
@@ -356,6 +356,8 @@ function playGameOver(){stopJazz();[400,300,200,100].forEach((f,i)=>setTimeout((
 // GAME STATE
 // ============================================================
 const canvas=document.getElementById('gameCanvas');
+canvas.width = CANVAS_W;
+canvas.height = CANVAS_H;
 const ctx=canvas.getContext('2d');
 const nextCvs=document.getElementById('nextCanvas');
 const nCtx=nextCvs.getContext('2d');
@@ -671,7 +673,7 @@ function render() {
   drawFramedPortrait(ctx, gx + gw + 8, GRID_Y + 10, portraitW, portraitH);
 
   // === 5b. BILL CLINTON (right side, below portrait) ===
-  drawBill(ctx,gx+gw+4,gy+gh-90*0.85);
+  drawBill(ctx, gx+gw+4, gy+gh-94);
 
   // === 6. GRID LINES ===
   ctx.strokeStyle='rgba(255,255,255,.04)'; ctx.lineWidth=.5;
