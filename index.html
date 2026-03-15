@@ -310,6 +310,7 @@ const VERDICTS = [
 // ============================================================
 const hillaryImg = new Image(); hillaryImg.src = 'img/hillary.jpg';
 const billEpsteinImg = new Image(); billEpsteinImg.src = 'img/bill-epstein.jpg';
+const billFaceImg = new Image(); billFaceImg.src = 'img/bill-face.jpg';
 
 // ============================================================
 // RESPONSIVE SCALING
@@ -556,19 +557,22 @@ function drawBill(c2d, x, y) {
   c2d.fillStyle='#cc0000';
   c2d.beginPath();c2d.moveTo(x+S*0.36,y+S*0.4);c2d.lineTo(x+S*0.44,y+S*0.4);c2d.lineTo(x+S*0.46,y+S*0.64);c2d.lineTo(x+S*0.4,y+S*0.7);c2d.lineTo(x+S*0.34,y+S*0.64);c2d.closePath();c2d.fill();
   // Neck
-  c2d.fillStyle=SKIN;c2d.fillRect(x+S*0.35,y+S*0.34,S*0.1,S*0.12);
-  // Head
-  c2d.fillStyle=SKIN;c2d.beginPath();c2d.ellipse(x+S*0.4,y+S*0.26,S*0.2,S*0.22,0,0,Math.PI*2);c2d.fill();
-  // White hair (sides only — Bill's bald on top)
-  c2d.fillStyle='#ddd';
-  c2d.beginPath();c2d.arc(x+S*0.21,y+S*0.22,S*0.1,0.4*Math.PI,1.6*Math.PI);c2d.fill();
-  c2d.beginPath();c2d.arc(x+S*0.59,y+S*0.22,S*0.1,1.5*Math.PI,0.5*Math.PI);c2d.fill();
-  // Eyes
-  c2d.fillStyle='#1a1a3a';c2d.beginPath();c2d.arc(x+S*0.33,y+S*0.22,S*0.025,0,Math.PI*2);c2d.fill();
-  c2d.beginPath();c2d.arc(x+S*0.47,y+S*0.22,S*0.025,0,Math.PI*2);c2d.fill();
-  // Sly grin
-  c2d.strokeStyle='#aa5533';c2d.lineWidth=2;
-  c2d.beginPath();c2d.arc(x+S*0.4,y+S*0.29,S*0.1,0.1,Math.PI-0.1);c2d.stroke();
+  c2d.fillStyle=SKIN;c2d.fillRect(x+S*0.35,y+S*0.34,S*0.1,S*0.1);
+  // Head — real photo if loaded, else drawn fallback
+  const headR = S*0.24, headCX = x+S*0.4, headCY = y+S*0.24;
+  if (billFaceImg.complete && billFaceImg.naturalWidth > 0) {
+    c2d.save();
+    c2d.beginPath(); c2d.arc(headCX, headCY, headR, 0, Math.PI*2); c2d.closePath(); c2d.clip();
+    // Photo is portrait — crop to face area (top 60% of image)
+    const iw=billFaceImg.naturalWidth, ih=billFaceImg.naturalHeight;
+    c2d.drawImage(billFaceImg, 0, 0, iw, ih*0.62, headCX-headR, headCY-headR, headR*2, headR*2);
+    c2d.restore();
+  } else {
+    c2d.fillStyle=SKIN;c2d.beginPath();c2d.ellipse(headCX,headCY,S*0.2,S*0.22,0,0,Math.PI*2);c2d.fill();
+    c2d.fillStyle='#ddd';
+    c2d.beginPath();c2d.arc(x+S*0.21,y+S*0.22,S*0.1,0.4*Math.PI,1.6*Math.PI);c2d.fill();
+    c2d.beginPath();c2d.arc(x+S*0.59,y+S*0.22,S*0.1,1.5*Math.PI,0.5*Math.PI);c2d.fill();
+  }
   // Left hand/arm pointing into grid
   c2d.fillStyle=SKIN;
   c2d.beginPath();c2d.moveTo(x+S*0.12,y+S*0.42);c2d.lineTo(x-S*0.05,y+S*0.52);c2d.lineTo(x-S*0.08,y+S*0.56);c2d.lineTo(x+S*0.08,y+S*0.5);c2d.closePath();c2d.fill();
@@ -818,6 +822,7 @@ function closeModal(id){document.getElementById(id).classList.remove('active');}
 scaleGame();
 render();
 billEpsteinImg.onload = () => { if (!gameRunning) render(); };
+billFaceImg.onload = () => render();
 </script>
 </body>
 </html>
