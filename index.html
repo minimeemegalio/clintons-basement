@@ -9,7 +9,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #2a1a0a;
+      background: #2a1a0a url('img/basement.jpg') center center / cover no-repeat fixed;
       font-family: 'Comic Neue', 'Comic Sans MS', cursive;
       min-height: 100vh;
       display: flex;
@@ -17,6 +17,12 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 0;
     }
 
     .layout {
@@ -55,6 +61,7 @@
     }
     canvas#gameCanvas {
       display: block; border: 2px inset #808080; image-rendering: pixelated;
+      background: transparent;
     }
 
     /* OVERLAYS */
@@ -428,7 +435,7 @@ function playGameOver() { stopJazz(); [400,300,200,100].forEach((f,i)=>setTimeou
 // GAME STATE
 // ============================================================
 const canvas  = document.getElementById('gameCanvas');
-const ctx     = canvas.getContext('2d');
+const ctx     = canvas.getContext('2d', { alpha: true });
 const nextCvs = document.getElementById('nextCanvas');
 const nCtx    = nextCvs.getContext('2d');
 
@@ -624,16 +631,10 @@ function lighten(hex) {
 }
 
 function render() {
-  // Draw basement photo as background
-  if(basementImg.complete && basementImg.naturalWidth>0) {
-    ctx.drawImage(basementImg, 0, 0, canvas.width, canvas.height);
-    // Dark overlay so pieces are visible
-    ctx.fillStyle='rgba(0,0,0,0.55)';
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-  } else {
-    ctx.fillStyle='#1a0005';
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-  }
+  // Canvas is transparent — basement shows through the page background
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle='rgba(0,0,0,0.45)';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
 
   // Subtle grid
   ctx.strokeStyle='rgba(255,255,255,.06)'; ctx.lineWidth=.5;
