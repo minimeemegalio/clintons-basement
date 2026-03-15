@@ -309,6 +309,7 @@ const VERDICTS = [
 // IMAGES
 // ============================================================
 const hillaryImg = new Image(); hillaryImg.src = 'img/hillary.jpg';
+const billEpsteinImg = new Image(); billEpsteinImg.src = 'img/bill-epstein.jpg';
 
 // ============================================================
 // RESPONSIVE SCALING
@@ -497,6 +498,28 @@ function drawLightBulb(c2d, cx, ceilBottom) {
   c2d.fillStyle='#fffde8';c2d.beginPath();c2d.ellipse(cx,bulbY,7,9,0,0,Math.PI*2);c2d.fill();
 }
 
+function drawFramedPortrait(c2d, x, y, w, h) {
+  // Gold frame
+  const frameW = 5;
+  c2d.fillStyle = '#8B6914';
+  c2d.fillRect(x - frameW, y - frameW, w + frameW*2, h + frameW*2);
+  // Frame highlight
+  c2d.strokeStyle = '#ffd700'; c2d.lineWidth = 1.5;
+  c2d.strokeRect(x - frameW + 1, y - frameW + 1, w + frameW*2 - 2, h + frameW*2 - 2);
+  c2d.strokeStyle = '#5a4000'; c2d.lineWidth = 1;
+  c2d.strokeRect(x - 1, y - 1, w + 2, h + 2);
+  // Photo
+  if (billEpsteinImg.complete && billEpsteinImg.naturalWidth > 0) {
+    c2d.drawImage(billEpsteinImg, x, y, w, h);
+  } else {
+    c2d.fillStyle = '#222'; c2d.fillRect(x, y, w, h);
+  }
+  // Small plaque below
+  c2d.fillStyle = '#b8860b'; c2d.fillRect(x + w*0.1, y + h + frameW, w*0.8, 10);
+  c2d.fillStyle = '#000'; c2d.font = `bold ${Math.floor(w*0.12)}px Arial`; c2d.textAlign = 'center';
+  c2d.fillText('BEST FRIENDS', x + w/2, y + h + frameW + 8);
+}
+
 function drawChains(c2d, x, startY) {
   c2d.strokeStyle='#888'; c2d.lineWidth=2;
   for(let i=0;i<2;i++){
@@ -623,7 +646,11 @@ function render() {
   // === 4. CHAINS on left wall ===
   drawChains(ctx,8,GRID_Y+40);
 
-  // === 5. BILL CLINTON (right side) ===
+  // === 5. FRAMED PORTRAIT (right wall, above Bill) ===
+  const portraitW = RIGHT_W - 16, portraitH = Math.floor(portraitW * 1.2);
+  drawFramedPortrait(ctx, gx + gw + 8, GRID_Y + 10, portraitW, portraitH);
+
+  // === 5b. BILL CLINTON (right side, below portrait) ===
   drawBill(ctx,gx+gw+4,gy+gh-90*0.85);
 
   // === 6. GRID LINES ===
@@ -790,6 +817,7 @@ function closeModal(id){document.getElementById(id).classList.remove('active');}
 // ============================================================
 scaleGame();
 render();
+billEpsteinImg.onload = () => { if (!gameRunning) render(); };
 </script>
 </body>
 </html>
