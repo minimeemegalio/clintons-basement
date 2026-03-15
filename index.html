@@ -9,7 +9,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #2a1a0a url('img/basement.jpg') center center / cover no-repeat fixed;
+      background: #1a0a0a;
       font-family: 'Comic Neue', 'Comic Sans MS', cursive;
       min-height: 100vh;
       display: flex;
@@ -17,12 +17,6 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-    }
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,0.45);
-      z-index: 0;
     }
 
     .layout {
@@ -61,7 +55,6 @@
     }
     canvas#gameCanvas {
       display: block; border: 2px inset #808080; image-rendering: pixelated;
-      background: transparent;
     }
 
     /* OVERLAYS */
@@ -191,7 +184,7 @@
       <div class="title-bar-btns"><span>_</span><span>□</span><span>✕</span></div>
     </div>
     <div class="window-body" style="position:relative;">
-      <canvas id="gameCanvas" width="200" height="400"></canvas>
+      <canvas id="gameCanvas" width="280" height="560"></canvas>
       <div id="rowClearMsg"></div>
 
       <!-- START -->
@@ -337,7 +330,7 @@ const SUPABASE_KEY = '';
 // ============================================================
 // CONSTANTS
 // ============================================================
-const COLS = 10, ROWS = 20, CELL = 20;
+const COLS = 10, ROWS = 20, CELL = 28;
 const DRESS_COLORS = ['#ff69b4','#ff1493','#cc44cc','#ee5599','#ff4488','#dd3377','#ff77aa'];
 const EPSTEIN_COLOR = '#ffd700';
 const SKIN = '#f5c5a3';
@@ -435,7 +428,7 @@ function playGameOver() { stopJazz(); [400,300,200,100].forEach((f,i)=>setTimeou
 // GAME STATE
 // ============================================================
 const canvas  = document.getElementById('gameCanvas');
-const ctx     = canvas.getContext('2d', { alpha: true });
+const ctx     = canvas.getContext('2d');
 const nextCvs = document.getElementById('nextCanvas');
 const nCtx    = nextCvs.getContext('2d');
 
@@ -631,10 +624,21 @@ function lighten(hex) {
 }
 
 function render() {
-  // Canvas is transparent — basement shows through the page background
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle='rgba(0,0,0,0.45)';
-  ctx.fillRect(0,0,canvas.width,canvas.height);
+  // Basement image — cover behavior (scale to fill, centered, no distortion)
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (basementImg.complete && basementImg.naturalWidth > 0) {
+    const iw = basementImg.naturalWidth, ih = basementImg.naturalHeight;
+    const cw = canvas.width, ch = canvas.height;
+    const scale = Math.max(cw / iw, ch / ih);
+    const sw = iw * scale, sh = ih * scale;
+    const sx = (cw - sw) / 2, sy = (ch - sh) / 2;
+    ctx.drawImage(basementImg, sx, sy, sw, sh);
+  } else {
+    ctx.fillStyle = '#1a0005';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+  ctx.fillStyle = 'rgba(0,0,0,0.48)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // Subtle grid
   ctx.strokeStyle='rgba(255,255,255,.06)'; ctx.lineWidth=.5;
